@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SimpleBlog.Data;
 using SimpleBlog.Data.Entities;
+using SimpleBlog.Data.Repositories;
+using SimpleBlog.Services;
 
 namespace SimpleBlog
 {
@@ -28,11 +30,17 @@ namespace SimpleBlog
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddSingleton(provider => Configuration);
 
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<DataContext>()
+                .AddEntityFrameworkStores<DataContext, int>()
                 .AddDefaultTokenProviders();
+
+            services.AddSingleton<DbContext, DataContext>();
+            services.AddSingleton<IRepository<User>, Repository<User>>();
+            services.AddSingleton<IRepository<Role>, Repository<Role>>();
+            services.AddSingleton<IUserService, UsersService>();
+
+            services.AddSingleton(provider => Configuration);
 
             services.AddMvc();
         }
@@ -55,6 +63,11 @@ namespace SimpleBlog
                 routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "adminUsers",
+                    template: "{area:exists}/users",
+                    defaults: new { controller = "Users", action = "UsersList" });
 
                 routes.MapRoute(
                     name: "default",

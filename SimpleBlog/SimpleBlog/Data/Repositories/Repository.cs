@@ -42,7 +42,7 @@ namespace SimpleBlog.Data.Repositories
 
         bool Exists(Expression<Func<TEntity, bool>> filter);
 
-        TEntity GetByID(object ID);
+        TEntity GetById(object Id);
 
         int? GetCount(Expression<Func<TEntity, bool>> filter = null);
 
@@ -150,9 +150,9 @@ namespace SimpleBlog.Data.Repositories
             ).ToList();
         }
 
-        public TEntity GetByID(object ID)
+        public TEntity GetById(object id)
         {
-            return Context.Set<TEntity>().Find(ID);
+            return Context.Set<TEntity>().Find(id);
         }
 
         public TEntity GetFirst

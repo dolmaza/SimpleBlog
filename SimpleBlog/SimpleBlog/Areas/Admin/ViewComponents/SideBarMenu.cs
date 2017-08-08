@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SimpleBlog.Areas.Admin.Models;
+using SimpleBlog.Areas.Admin.ViewModels;
 using System.Collections.Generic;
 
 namespace SimpleBlog.Areas.Admin.ViewComponents

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleBlog.Areas.Admin.Models
+namespace SimpleBlog.Areas.Admin.ViewModels
 {
     public class SideBarMenuViewModel
     {
