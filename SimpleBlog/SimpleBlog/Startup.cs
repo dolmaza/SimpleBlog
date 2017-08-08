@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SimpleBlog.Data;
+using SimpleBlog.Data.Entities;
 
 namespace SimpleBlog
 {
@@ -21,7 +24,16 @@ namespace SimpleBlog
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
             services.AddSingleton(provider => Configuration);
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<DataContext>()
+                .AddDefaultTokenProviders();
+
             services.AddMvc();
         }
 
@@ -36,8 +48,14 @@ namespace SimpleBlog
 
             app.UseStaticFiles();
 
+            app.UseIdentity();
+
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

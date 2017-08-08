@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="~/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">*@
+    <link href="~/plugins/adminLTE/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="~/plugins/adminLTE/css/skin-blue.min.css" rel="stylesheet" />
+    <link href="~/admin/css/style.css" rel="stylesheet" />
+
+    @RenderSection("HeaderSection", false)
+    <meta name="description" content="" />
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+
+    <div class="wrapper">
+        <header class="main-header">
+            <a href="#" class="logo">
+                <span class="logo-mini"><b>S</b>B</span>
+                <span class="logo-lg"><b>Simple</b> Blog</span>
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-custom-menu">
+                    @await Component.InvokeAsync("TopMenu")
+
+                </div>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            @await Component.InvokeAsync("SideBarMenu")
+
+        </aside>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>
+                    @ViewBag.Title
+                </h1>
+                @RenderSection("Breadcramps", false)
+            </section>
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.3.0
+            </div>
+            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <script src="~/admin/scripts/global.js"></script>
+    <script src="~/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/plugins/fastclick/fastclick.min.js"></script>
+    <script src="~/plugins/adminLTE/js/app.min.js"></script>
+    @RenderSection("FooterSection", false)
+</body>
+</html>

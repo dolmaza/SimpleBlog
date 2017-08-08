@@ -1,0 +1,34 @@
+﻿@model SideBarMenuViewModel
+<section class="sidebar">
+    <ul class="sidebar-menu">
+
+        @foreach (var menuItem in Model.MenuItems)
+        {
+            if (menuItem.HasNextLevelMenuItems)
+            {
+                <li class="@(menuItem.IsActive ? Html.Raw("active") : null)">
+                    <a href="@menuItem.Url">
+                        <i class="@menuItem.Icon"></i> <span>@menuItem.Caption</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="treeview @(menuItem.IsActive ? Html.Raw("active") : null)">
+                    <a href="#">
+                        <i class="@menuItem.Icon"></i>
+                        <span>@menuItem.Caption</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        @foreach (var secondLevelMenuItem in menuItem.MenuItems)
+                        {
+
+                            <li class="@(secondLevelMenuItem.IsActive ? Html.Raw("active") : null)"><a href="@secondLevelMenuItem.Url"><i class="@secondLevelMenuItem.Icon"></i> @secondLevelMenuItem.Caption</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+</section>

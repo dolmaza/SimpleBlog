@@ -1,0 +1,51 @@
+﻿.gm_loader{
+	position:fixed;
+	z-index:99999;
+	width:100%;
+	height:100%;
+	text-align:center;
+	left:0;
+	top:0;
+}
+.gm_loader_bg{
+	background:black;
+	opacity:.4;
+	filter: alpha(opacity = 40);
+	width:100%;
+	height:100%;
+	position:absolute;
+}
+.gm_loader_content{
+	width:320px;
+	height:100%;
+	margin:0px auto;
+	position:relative;
+}
+.gm_loader_content > div{
+	position:absolute;
+	top:50%;
+	width:320px;
+	height:80px;
+	margin-top:-40px;
+}
+/*.gm_loader_logo {
+	float: left;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 320px;
+	height: 60px;
+	background: url('../../images/logo_dark.png') center no-repeat;
+}*/
+.gm_loader_bar
+{
+	float:left;
+	position:relative;
+	top:10px;
+	left:50px;
+	width:220px;
+	height:19px;
+	background:url('img/ajax-loader.gif');
+}
+
+
