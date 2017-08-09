@@ -2,3 +2,72 @@
 @{
     ViewBag.Title = "Users";
 }
+
+@section HeaderSection {
+    <link href="~/plugins/dataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+}
+
+@section Breadcramps {
+    <ol class="breadcrumb">
+        <li class="active"><i class="fa fa-users"></i> Users</li>
+    </ol>
+}
+
+<div class="box">
+    <div class="box-header with-border">
+        <a href="@Model.UserCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> Create</a>
+
+        <div class="box-tools pull-right">
+
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="users-table" class="table table-bordered table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th>UserName</th>
+                            <th>Email</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Is Active</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.UserItems)
+                        {
+                            <tr>
+                                <td>@item.UserName</td>
+                                <td>@item.Email</td>
+                                <td>@item.Firstname</td>
+                                <td>@item.Lastname</td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" @(item.IsActive ? Html.Raw("checked") : null) value="true">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="@item.UpdateUrl" class="btn btn-xs btn-warning"> <i class="fa fa-pencil"></i> Edit</a>
+                                    <a href="@item.DeleteUrl" class="btn btn-xs btn-danger delete-btn"> <i class="fa fa-trash-o"></i> Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section FooterSection {
+    <script src="~/plugins/dataTables/js/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/dataTables/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/admin/scripts/Users/UsersList.js"></script>
+}

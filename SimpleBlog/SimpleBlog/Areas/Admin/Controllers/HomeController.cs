@@ -2,8 +2,7 @@
 
 namespace SimpleBlog.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class HomeController : Controller
+    public class HomeController : BaseAdminController
     {
         public ViewResult Dashboard()
         {

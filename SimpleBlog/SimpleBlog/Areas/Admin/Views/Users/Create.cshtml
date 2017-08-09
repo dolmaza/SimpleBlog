@@ -1,0 +1,69 @@
+﻿@model UsersCreateViewModel
+@{
+    ViewBag.Title = "Create User";
+}
+
+
+@section Breadcramps {
+    <ol class="breadcrumb">
+        <li><a href="@Model.UsersListUrl"><i class="fa fa-users"></i> Users</a></li>
+        <li class="active">Create</li>
+    </ol>
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <button form="users-create-form" class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</button>
+    </div>
+    <form role="form" id="users-create-form" method="post">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="@nameof(Model.UserName)">UserName</label>
+                        <input type="text" class="form-control" id="@nameof(Model.UserName)" name="@nameof(Model.UserName)" value="@Model.UserName" placeholder="Enter userName">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="@nameof(Model.Email)">Email</label>
+                        <input type="email" class="form-control" id="@nameof(Model.Email)" name="@nameof(Model.Email)" value="@Model.Email" placeholder="Enter email">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="@nameof(Model.Firstname)">Firstname</label>
+                        <input type="text" class="form-control" id="@nameof(Model.Firstname)" name="@nameof(Model.Firstname)" value="@Model.Firstname" placeholder="Enter firstname">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="@nameof(Model.Lastname)">Lastname</label>
+                        <input type="text" class="form-control" id="@nameof(Model.Lastname)" name="@nameof(Model.Lastname)" value="@Model.Lastname" placeholder="Enter lastname">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input type="password" class="form-control" name="Password" id="Password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Is Active</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" @(Model.IsActive ? Html.Raw("checked") : null) name="@nameof(Model.IsActive)" value="true"> Check if user is active
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

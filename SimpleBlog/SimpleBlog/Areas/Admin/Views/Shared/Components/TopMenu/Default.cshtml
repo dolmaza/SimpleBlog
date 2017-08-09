@@ -1,10 +1,23 @@
-﻿
+﻿@model TopMenuViewModel
 <ul class="nav navbar-nav">
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i> <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#"><i class="fa fa-globe"></i> Back To Website</a></li>
-            <li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
-        </ul>
-    </li>
+    @foreach (var item in Model.MenuItems)
+    {
+        if (item.HasNextLevelMenuItems)
+        {
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="@item.Icon"></i> @item.Caption <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    @foreach (var subItem in item.MenuItems)
+                    {
+                        <li><a href="@subItem.Url"><i class="@subItem.Icon"></i> @subItem.Caption</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li class="@(item.IsActive ? Html.Raw("active") : null)"><a href="@(item.IsActive ? null : Html.Raw(item.Url))">@item.Caption</a></li>
+        }
+    }
+
 </ul>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,10 @@ namespace SimpleBlog
 
 
 
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(options =>
+                {
+                    options.Cookies.ApplicationCookie.LoginPath = "/admin/login";
+                })
                 .AddEntityFrameworkStores<DataContext, int>()
                 .AddDefaultTokenProviders();
 
@@ -39,6 +43,7 @@ namespace SimpleBlog
             services.AddSingleton<IRepository<User>, Repository<User>>();
             services.AddSingleton<IRepository<Role>, Repository<Role>>();
             services.AddSingleton<IUserService, UsersService>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddSingleton(provider => Configuration);
 
@@ -60,9 +65,16 @@ namespace SimpleBlog
 
             app.UseMvc(routes =>
             {
+
+                #region Admin Routes
+
                 routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "adminDashboard",
+                    template: "{area:exists}/dashboard",
+                    defaults: new { controller = "Home", action = "Dashboard" });
 
                 routes.MapRoute(
                     name: "adminUsers",
@@ -70,8 +82,39 @@ namespace SimpleBlog
                     defaults: new { controller = "Users", action = "UsersList" });
 
                 routes.MapRoute(
+                    name: "adminUsersCreate",
+                    template: "{area:exists}/users/create",
+                    defaults: new { controller = "Users", action = "Create" });
+
+                routes.MapRoute(
+                    name: "adminUsersEdit",
+                    template: "{area:exists}/users/{id}/edit",
+                    defaults: new { controller = "Users", action = "Edit" });
+
+                routes.MapRoute(
+                    name: "adminUsersDelete",
+                    template: "{area:exists}/users/{id}/delete",
+                    defaults: new { controller = "Users", action = "Delete" });
+
+                routes.MapRoute(
+                    name: "adminLogin",
+                    template: "{area:exists}/login",
+                    defaults: new { controller = "Auth", action = "Login" });
+                routes.MapRoute(
+                    name: "adminLogout",
+                    template: "{area:exists}/logout",
+                    defaults: new { controller = "Auth", action = "Logout" });
+
+                #endregion
+
+                #region Web Routes
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                #endregion
+
             });
 
             app.Run(async (context) =>

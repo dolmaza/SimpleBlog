@@ -87,7 +87,7 @@ namespace SimpleBlog.Data.Repositories
                 query = query.Where(filter);
             }
 
-            if (includes != null)
+            if (includes != null && includes.Any())
             {
                 query = includes.Aggregate(query,
                           (current, include) => current.Include(include));

@@ -4,7 +4,7 @@
 
         @foreach (var menuItem in Model.MenuItems)
         {
-            if (menuItem.HasNextLevelMenuItems)
+            if (!menuItem.HasNextLevelMenuItems)
             {
                 <li class="@(menuItem.IsActive ? Html.Raw("active") : null)">
                     <a href="@menuItem.Url">
