@@ -31,6 +31,14 @@ namespace SimpleBlog.Areas.Admin.ViewComponents
                         Icon = "fa fa-users",
                         Url = Url.RouteUrl("adminUsers"),
                         IsActive = Request.GetUri().AbsolutePath ==Url.RouteUrl("adminUsers")
+                    },
+
+                    new SideBarMenuViewModel.MenuItem
+                    {
+                        Caption = "Categories",
+                        Icon = "fa fa-list",
+                        Url = Url.RouteUrl("adminCategories"),
+                        IsActive = Request.GetUri().AbsolutePath == Url.RouteUrl("adminCategories")
                     }
                 }
             };

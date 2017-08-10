@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Areas.Admin.SubmitModels;
 using SimpleBlog.Areas.Admin.ViewModels;
 using SimpleBlog.Data.Entities;
-using SimpleBlog.Services;
+using SimpleBlog.Services.Admin;
 using System.Threading.Tasks;
 
 namespace SimpleBlog.Areas.Admin.Controllers

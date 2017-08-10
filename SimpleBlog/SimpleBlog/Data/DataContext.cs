@@ -11,12 +11,28 @@ namespace SimpleBlog.Data
         {
 
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            #region User Configurations
+
+            builder.Entity<User>()
+                .HasIndex(u => u.UserName).IsUnique();
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+
+            #endregion
+
+            #region Category Configurations
+
+            builder.Entity<Category>()
+                .HasOne(c => c.ParentCategory)
+                .WithMany(c => c.ChildCategories)
+                .HasForeignKey(c => c.ParentId);
+
+            #endregion
+
         }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }

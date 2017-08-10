@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using SimpleBlog.Data;
 using SimpleBlog.Data.Entities;
 using SimpleBlog.Data.Repositories;
-using SimpleBlog.Services;
+using SimpleBlog.Services.Admin;
 
 namespace SimpleBlog
 {
@@ -30,8 +30,6 @@ namespace SimpleBlog
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-
-
             services.AddIdentity<User, Role>(options =>
                 {
                     options.Cookies.ApplicationCookie.LoginPath = "/admin/login";
@@ -40,9 +38,14 @@ namespace SimpleBlog
                 .AddDefaultTokenProviders();
 
             services.AddSingleton<DbContext, DataContext>();
+
             services.AddSingleton<IRepository<User>, Repository<User>>();
             services.AddSingleton<IRepository<Role>, Repository<Role>>();
+            services.AddSingleton<IRepository<Category>, Repository<Category>>();
+
             services.AddSingleton<IUserService, UsersService>();
+            services.AddSingleton<ICategoryService, CategoriesService>();
+
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddSingleton(provider => Configuration);
@@ -100,10 +103,36 @@ namespace SimpleBlog
                     name: "adminLogin",
                     template: "{area:exists}/login",
                     defaults: new { controller = "Auth", action = "Login" });
+
                 routes.MapRoute(
                     name: "adminLogout",
                     template: "{area:exists}/logout",
                     defaults: new { controller = "Auth", action = "Logout" });
+
+                routes.MapRoute(
+                    name: "adminCategories",
+                    template: "{area:exists}/categories",
+                    defaults: new { controller = "Categories", action = "Categories" });
+
+                routes.MapRoute(
+                    name: "adminCategoriesCreate",
+                    template: "{area:exists}/categories/create",
+                    defaults: new { controller = "Categories", action = "Create" });
+
+                routes.MapRoute(
+                    name: "adminCategoriesUpdate",
+                    template: "{area:exists}/categories/{id}/update",
+                    defaults: new { controller = "Categories", action = "Update" });
+
+                routes.MapRoute(
+                    name: "adminCategoriesDelete",
+                    template: "{area:exists}/categories/{id}/delete",
+                    defaults: new { controller = "Categories", action = "Delete" });
+
+                routes.MapRoute(
+                    name: "adminCategoriesSyncSortIndexes",
+                    template: "{area:exists}/categories/sync-sort-indexes",
+                    defaults: new { controller = "Categories", action = "SyncSortIndexes" });
 
                 #endregion
 

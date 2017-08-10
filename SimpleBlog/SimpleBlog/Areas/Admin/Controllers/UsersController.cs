@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Areas.Admin.SubmitModels;
 using SimpleBlog.Areas.Admin.ViewModels;
-using SimpleBlog.Services;
+using SimpleBlog.Services.Admin;
 using System.Linq;
 
 namespace SimpleBlog.Areas.Admin.Controllers
@@ -87,7 +87,6 @@ namespace SimpleBlog.Areas.Admin.Controllers
             }
 
         }
-
 
         [HttpPost]
         public IActionResult Edit(UserUpdateSubmitModel submitModel)

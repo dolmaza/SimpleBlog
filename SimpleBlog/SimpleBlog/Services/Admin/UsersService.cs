@@ -10,11 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SimpleBlog.Services
+namespace SimpleBlog.Services.Admin
 {
-    public interface IUserService
+    public interface IUserService : IBaseService
     {
-        bool IsError { get; set; }
         IEnumerable<UsersViewModel.UserItem> GetAll();
         User GetById(int? id);
         User GetByUserNameAndPassword(string userName, string password);

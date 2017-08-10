@@ -8,9 +8,10 @@ using SimpleBlog.Data;
 namespace SimpleBlog.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20170810082253_AddUserNameUniqueIndexInUsersTable")]
+    partial class AddUserNameUniqueIndexInUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -95,28 +96,6 @@ namespace SimpleBlog.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("SimpleBlog.Data.Entities.Category", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Caption");
-
-                    b.Property<int?>("Code");
-
-                    b.Property<DateTime?>("CreateTime");
-
-                    b.Property<int?>("ParentId");
-
-                    b.Property<int?>("SortIndex");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("SimpleBlog.Data.Entities.Role", b =>
@@ -236,13 +215,6 @@ namespace SimpleBlog.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SimpleBlog.Data.Entities.Category", b =>
-                {
-                    b.HasOne("SimpleBlog.Data.Entities.Category", "ParentCategory")
-                        .WithMany("ChildCategories")
-                        .HasForeignKey("ParentId");
                 });
         }
     }
