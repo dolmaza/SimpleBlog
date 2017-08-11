@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Content Include="wwwroot\admin\css\style.css" />
+    <Content Include="wwwroot\admin\scripts\Categories\Categories.js" />
     <Content Include="wwwroot\admin\scripts\global.js" />
     <Content Include="wwwroot\admin\scripts\Users\UsersList.js" />
     <Content Include="wwwroot\plugins\adminLTE\css\AdminLTE.min.css" />
@@ -128,6 +129,18 @@
     <Content Include="wwwroot\plugins\jQuery\jQuery-2.1.4.min.js" />
     <Content Include="wwwroot\plugins\jQuery\jquery.numeric-input.js" />
     <Content Include="wwwroot\plugins\jQuery\masked-input.js" />
+    <Content Include="wwwroot\plugins\jstree\jstree.js" />
+    <Content Include="wwwroot\plugins\jstree\jstree.min.js" />
+    <Content Include="wwwroot\plugins\jstree\themes\default-dark\32px.png" />
+    <Content Include="wwwroot\plugins\jstree\themes\default-dark\40px.png" />
+    <Content Include="wwwroot\plugins\jstree\themes\default-dark\style.css" />
+    <Content Include="wwwroot\plugins\jstree\themes\default-dark\style.min.css" />
+    <Content Include="wwwroot\plugins\jstree\themes\default-dark\throbber.gif" />
+    <Content Include="wwwroot\plugins\jstree\themes\default\32px.png" />
+    <Content Include="wwwroot\plugins\jstree\themes\default\40px.png" />
+    <Content Include="wwwroot\plugins\jstree\themes\default\style.css" />
+    <Content Include="wwwroot\plugins\jstree\themes\default\style.min.css" />
+    <Content Include="wwwroot\plugins\jstree\themes\default\throbber.gif" />
     <Content Include="wwwroot\plugins\loader\img\ajax-loader.gif" />
     <Content Include="wwwroot\plugins\loader\loader.css" />
     <Content Include="wwwroot\plugins\loader\loader.js" />

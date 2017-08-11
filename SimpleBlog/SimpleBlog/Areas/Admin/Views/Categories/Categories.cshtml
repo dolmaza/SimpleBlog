@@ -3,26 +3,89 @@
     ViewBag.Title = "Categories";
 }
 
+@section HeaderSection {
+    <link href="~/plugins/jstree/themes/default/style.min.css" rel="stylesheet" />
+}
+
 @section Breadcramps {
     <ol class="breadcrumb">
         <li class="active"><i class="fa fa-list"></i> Categories</li>
     </ol>
 }
 
+<div class="row">
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-header with-border">
+                <a href="#" id="save-btn" class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</a>
 
-<div class="box">
-    <div class="box-header with-border">
-        <a href="@Model.CategoryCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> Create</a>
+                <div class="box-tools pull-right">
 
-        <div class="box-tools pull-right">
-
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Caption</label>
+                            <input type="text" value="" id="category-caption" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Code</label>
+                            <input type="text" value="" id="category-code" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="box-body">
-        <div class="row">
-            <div class="col-md-12">
+    <div class="col-md-6">
+        <div class="box box-categories">
+            <div class="box-header with-border">
+                <div id="category-control-btn-group">
+                    <a href="#" id="create-btn" class="btn btn-default"><i class="fa fa-plus"></i> Create</a>
+                    <a href="#" id="update-btn" class="btn btn-primary"><i class="fa fa-wrench"></i> Update</a>
+                    <a href="#" id="delete-btn" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                </div>
+                <a href="#" id="cancel-btn" class="btn btn-warning hidden"><i class="fa fa-times"></i> Cancel</a>
 
+                <div class="box-tools pull-right">
+                    <a href="#" id="refresh-btn" class="btn bg-navy"><i class="fa fa-refresh"></i> Refresh</a>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12" id="categories-tree">
+                        <ul>
+                            @foreach (var item in Model.Categories)
+                            {
+                                <li data-id="@item.Id" data-parent-id="@item.ParentId">
+                                    @item.Caption
+
+                                    @if (item.HasSubCategories)
+                                    {
+                                        <ul>
+                                            @foreach (var subItem in item.Categories)
+                                            {
+                                                <li data-id="@subItem.Id" data-parent-id="@subItem.ParentId">@subItem.Caption</li>
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+@section FooterSection {
+    <script src="~/plugins/jstree/jstree.min.js"></script>
+    <script src="~/admin/scripts/Categories/Categories.js"></script>
+}

@@ -27,8 +27,11 @@ namespace SimpleBlog
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(provider => Configuration);
+
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
 
             services.AddIdentity<User, Role>(options =>
                 {
@@ -48,7 +51,6 @@ namespace SimpleBlog
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services.AddSingleton(provider => Configuration);
 
             services.AddMvc();
         }

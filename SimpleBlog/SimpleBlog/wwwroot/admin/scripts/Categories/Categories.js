@@ -1,0 +1,5 @@
+﻿$(function() {
+    $("#categories-tree").jstree({
+        
+    });
+});
