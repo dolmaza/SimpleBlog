@@ -37,6 +37,7 @@
                             <input type="text" value="" id="category-code" class="form-control" />
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -61,15 +62,15 @@
                         <ul>
                             @foreach (var item in Model.Categories)
                             {
-                                <li data-id="@item.Id" data-parent-id="@item.ParentId">
-                                    @item.Caption
+                                <li id="@item.Id" data-parent-id="@item.ParentId" data-code="@item.Code">
+                                    @item.Caption - @item.Code
 
                                     @if (item.HasSubCategories)
                                     {
                                         <ul>
                                             @foreach (var subItem in item.Categories)
                                             {
-                                                <li data-id="@subItem.Id" data-parent-id="@subItem.ParentId">@subItem.Caption</li>
+                                                <li id="@subItem.Id" data-parent-id="@subItem.ParentId" data-code="@subItem.Code">@subItem.Caption - @subItem.Code</li>
                                             }
                                         </ul>
                                     }
@@ -86,6 +87,12 @@
 
 
 @section FooterSection {
+    <script>
+        var createUrl = "@Model.CategoryCreateUrl";
+        var syncSortIndexesUrl = "@Model.SyncSortIndexesUrl";
+    </script>
+    <script src="~/plugins/jQuery/jquery.numeric-input.js"></script>
+    <script src="~/plugins/bootbox/bootbox.min.js"></script>
     <script src="~/plugins/jstree/jstree.min.js"></script>
     <script src="~/admin/scripts/Categories/Categories.js"></script>
 }

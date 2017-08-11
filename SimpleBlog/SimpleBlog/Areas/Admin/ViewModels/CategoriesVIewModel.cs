@@ -24,6 +24,8 @@ namespace SimpleBlog.Areas.Admin.ViewModels
             public int? Id { get; set; }
             public int? ParentId { get; set; }
             public string Caption { get; set; }
+            public int? Code { get; set; }
+
             public List<CategoryItem> Categories { get; set; }
             public bool HasSubCategories => Categories?.Count > 0;
 
@@ -43,6 +45,7 @@ namespace SimpleBlog.Areas.Admin.ViewModels
                         Id = c.Id,
                         ParentId = c.ParentId,
                         Caption = c.Caption,
+                        Code = c.Code,
 
                         UpdateUrl = url.RouteUrl("adminCategoriesUpdate", new { id = c.Id }),
                         DeleteUrl = url.RouteUrl("adminCategoriesDelete", new { id = c.Id }),

@@ -49,6 +49,7 @@ namespace SimpleBlog.Services.Admin
                 Id = c.Id,
                 ParentId = c.ParentId,
                 Caption = c.Caption,
+                Code = c.Code,
 
                 UpdateUrl = _url.RouteUrl("adminCategoriesUpdate", new { id = c.Id }),
                 DeleteUrl = _url.RouteUrl("adminCategoriesDelete", new { id = c.Id }),
