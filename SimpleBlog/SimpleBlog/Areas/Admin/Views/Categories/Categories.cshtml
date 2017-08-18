@@ -17,7 +17,7 @@
     <div class="col-md-6">
         <div class="box">
             <div class="box-header with-border">
-                <a href="#" id="save-btn" class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</a>
+                <a href="#" id="save-btn" class="btn btn-success disabled"><i class="fa fa-floppy-o"></i> Save</a>
 
                 <div class="box-tools pull-right">
 
@@ -46,11 +46,11 @@
         <div class="box box-categories">
             <div class="box-header with-border">
                 <div id="category-control-btn-group">
-                    <a href="#" id="create-btn" class="btn btn-default"><i class="fa fa-plus"></i> Create</a>
-                    <a href="#" id="update-btn" class="btn btn-primary"><i class="fa fa-wrench"></i> Update</a>
-                    <a href="#" id="delete-btn" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                    <a href="#" id="create-btn" class="btn btn-default disabled"><i class="fa fa-plus"></i> Create</a>
+                    <a href="#" id="update-btn" class="btn btn-primary disabled"><i class="fa fa-wrench"></i> Update</a>
+                    <a href="#" id="delete-btn" class="btn btn-danger disabled"><i class="fa fa-trash-o"></i> Delete</a>
                 </div>
-                <a href="#" id="cancel-btn" class="btn btn-warning hidden"><i class="fa fa-times"></i> Cancel</a>
+                <a href="#" id="cancel-btn" class="btn btn-warning"><i class="fa fa-times"></i> Cancel</a>
 
                 <div class="box-tools pull-right">
                     <a href="#" id="refresh-btn" class="btn bg-navy"><i class="fa fa-refresh"></i> Refresh</a>
@@ -62,15 +62,15 @@
                         <ul>
                             @foreach (var item in Model.Categories)
                             {
-                                <li id="@item.Id" data-parent-id="@item.ParentId" data-code="@item.Code">
-                                    @item.Caption - @item.Code
+                                <li id="@item.Id" data-parent-id="@item.ParentId" data-caption="@item.Caption" data-code="@item.Code" data-update-url="@item.UpdateUrl" data-delete-url="@item.DeleteUrl">
+                                    <span>@item.Caption - @item.Code</span>
 
                                     @if (item.HasSubCategories)
                                     {
                                         <ul>
                                             @foreach (var subItem in item.Categories)
                                             {
-                                                <li id="@subItem.Id" data-parent-id="@subItem.ParentId" data-code="@subItem.Code">@subItem.Caption - @subItem.Code</li>
+                                                <li id="@subItem.Id" data-parent-id="@subItem.ParentId" data-code="@subItem.Code" data-caption="@subItem.Caption" data-update-url="@subItem.UpdateUrl" data-delete-url="@subItem.DeleteUrl"> <span>@subItem.Caption - @subItem.Code </span></li>
                                             }
                                         </ul>
                                     }

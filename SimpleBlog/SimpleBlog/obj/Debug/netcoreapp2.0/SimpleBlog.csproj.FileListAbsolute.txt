@@ -1,0 +1,11 @@
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp2.0\SimpleBlog.deps.json
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp2.0\SimpleBlog.runtimeconfig.json
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp2.0\SimpleBlog.runtimeconfig.dev.json
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp2.0\SimpleBlog.dll
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp2.0\SimpleBlog.pdb
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp2.0\SimpleBlog.csproj.CoreCompileInputs.cache
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp2.0\SimpleBlog.AssemblyInfoInputs.cache
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp2.0\SimpleBlog.AssemblyInfo.cs
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp2.0\SimpleBlog.dll
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp2.0\SimpleBlog.pdb
+C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp2.0\SimpleBlog.csprojResolveAssemblyReference.cache

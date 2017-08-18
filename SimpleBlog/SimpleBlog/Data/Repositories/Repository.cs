@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SimpleBlog.Data.Repositories
 {
@@ -11,6 +12,14 @@ namespace SimpleBlog.Data.Repositories
     {
         bool IsError { get; }
         IEnumerable<TEntity> GetAll
+        (
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            params Expression<Func<TEntity, object>>[] includes
+        );
+
+        Task<IEnumerable<TEntity>> GetAllAsync
         (
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = null,
@@ -27,7 +36,22 @@ namespace SimpleBlog.Data.Repositories
             params Expression<Func<TEntity, object>>[] includes
         );
 
+        Task<IEnumerable<TEntity>> GetAsync
+        (
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            params Expression<Func<TEntity, object>>[] includes
+        );
+
         TEntity GetOne
+        (
+            Expression<Func<TEntity, bool>> filter = null,
+            params Expression<Func<TEntity, object>>[] includes
+        );
+
+        Task<TEntity> GetOneAsync
         (
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includes
@@ -40,23 +64,43 @@ namespace SimpleBlog.Data.Repositories
             params Expression<Func<TEntity, object>>[] includes
         );
 
+        Task<TEntity> GetFirstAsync
+        (
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            params Expression<Func<TEntity, object>>[] includes
+        );
+
         bool Exists(Expression<Func<TEntity, bool>> filter);
 
-        TEntity GetById(object Id);
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> filter);
+
+        TEntity GetById(object id);
+
+        Task<TEntity> GetByIdAsync(object id);
 
         int? GetCount(Expression<Func<TEntity, bool>> filter = null);
 
+        Task<int?> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
+
         decimal? GetSum(Expression<Func<TEntity, decimal?>> sumProperty, Expression<Func<TEntity, bool>> filter = null);
+
+        Task<decimal?> GetSumAsync(Expression<Func<TEntity, decimal?>> sumProperty, Expression<Func<TEntity, bool>> filter = null);
 
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 
+        Task AddAsync(TEntity entity);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
+
         void Update(TEntity entity);
+        void UpdateRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
 
         int Complate();
+        Task<int> ComplateAsync();
     }
 
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
@@ -131,6 +175,17 @@ namespace SimpleBlog.Data.Repositories
             ).ToList();
         }
 
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int? skip = null, int? take = null, params Expression<Func<TEntity, object>>[] includes)
+        {
+            return await GetQueryable
+            (
+                orderBy: orderBy,
+                skip: skip,
+                take: take,
+                includes: includes
+            ).ToListAsync();
+        }
+
         public IEnumerable<TEntity> Get
         (
             Expression<Func<TEntity, bool>> filter = null,
@@ -150,9 +205,27 @@ namespace SimpleBlog.Data.Repositories
             ).ToList();
         }
 
+        public async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int? skip = null, int? take = null,
+            params Expression<Func<TEntity, object>>[] includes)
+        {
+            return await GetQueryable
+            (
+                filter: filter,
+                orderBy: orderBy,
+                skip: skip,
+                take: take,
+                includes: includes
+            ).ToListAsync();
+        }
+
         public TEntity GetById(object id)
         {
             return Context.Set<TEntity>().Find(id);
+        }
+
+        public async Task<TEntity> GetByIdAsync(object id)
+        {
+            return await Context.Set<TEntity>().FindAsync(id);
         }
 
         public TEntity GetFirst
@@ -170,6 +243,16 @@ namespace SimpleBlog.Data.Repositories
             ).FirstOrDefault();
         }
 
+        public async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes)
+        {
+            return await GetQueryable
+            (
+                filter: filter,
+                orderBy: orderBy,
+                includes: includes
+            ).FirstOrDefaultAsync();
+        }
+
         public TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
         {
             return GetQueryable
@@ -179,12 +262,29 @@ namespace SimpleBlog.Data.Repositories
             ).SingleOrDefault();
         }
 
+        public async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
+        {
+            return await GetQueryable
+            (
+                filter: filter,
+                includes: includes
+            ).SingleOrDefaultAsync();
+        }
+
         public int? GetCount(Expression<Func<TEntity, bool>> filter = null)
         {
             return GetQueryable
             (
                 filter: filter
             ).Count();
+        }
+
+        public async Task<int?> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return await GetQueryable
+            (
+                filter: filter
+            ).CountAsync();
         }
 
         public decimal? GetSum(Expression<Func<TEntity, decimal?>> sumProperty, Expression<Func<TEntity, bool>> filter = null)
@@ -196,10 +296,24 @@ namespace SimpleBlog.Data.Repositories
             ).Sum(sumProperty);
         }
 
+        public async Task<decimal?> GetSumAsync(Expression<Func<TEntity, decimal?>> sumProperty, Expression<Func<TEntity, bool>> filter = null)
+        {
+            return await GetQueryable
+            (
+                filter: filter
+            ).SumAsync(sumProperty);
+        }
+
         public bool Exists(Expression<Func<TEntity, bool>> filter)
         {
             return GetQueryable(filter: filter).Any();
         }
+
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return await GetQueryable(filter: filter).AnyAsync();
+        }
+
 
         #endregion
 
@@ -215,10 +329,24 @@ namespace SimpleBlog.Data.Repositories
             Context.Set<TEntity>().AddRange(entities);
         }
 
+        public async Task AddAsync(TEntity entity)
+        {
+            await Context.Set<TEntity>().AddAsync(entity);
+        }
+
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            await Context.Set<TEntity>().AddRangeAsync(entities);
+        }
+
         public void Update(TEntity entity)
         {
-            Context.Set<TEntity>().Attach(entity);
-            Context.Entry(entity).State = EntityState.Modified;
+            Context.Set<TEntity>().Update(entity);
+        }
+
+        public void UpdateRange(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().UpdateRange(entities);
         }
 
         public void Remove(TEntity entity)
@@ -248,16 +376,29 @@ namespace SimpleBlog.Data.Repositories
 
         }
 
+        public async Task<int> ComplateAsync()
+        {
+            try
+            {
+                return await Context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                IsError = true;
+                return -1;
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
-            if (!this._disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
                     Context.Dispose();
                 }
             }
-            this._disposed = true;
+            _disposed = true;
         }
 
         public void Dispose()

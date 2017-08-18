@@ -11,8 +11,8 @@ namespace SimpleBlog.Areas.Admin.Controllers
     [Area("Admin")]
     public class AuthController : Controller
     {
-        private SignInManager<User> _signInManager;
-        private IUserService _userService;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IUserService _userService;
 
         public AuthController(SignInManager<User> signInManager, IUserService userService)
         {

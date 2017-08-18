@@ -41,7 +41,7 @@ namespace SimpleBlog.Services.Admin
 
         public IEnumerable<CategoriesViewModel.CategoryItem> GetAll()
         {
-            var categories = _categoryRepository.Get(filter: c => c.ParentId == null, includes: c => c.ChildCategories).ToList();
+            var categories = _categoryRepository.GetAsync(filter: c => c.ParentId == null, includes: c => c.ChildCategories).Result.ToList();
 
 
             return categories.Select(c => new CategoriesViewModel.CategoryItem

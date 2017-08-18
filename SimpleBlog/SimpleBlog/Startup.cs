@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,9 +36,9 @@ namespace SimpleBlog
 
             services.AddIdentity<User, Role>(options =>
                 {
-                    options.Cookies.ApplicationCookie.LoginPath = "/admin/login";
+
                 })
-                .AddEntityFrameworkStores<DataContext, int>()
+                .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
 
             services.AddSingleton<DbContext, DataContext>();
@@ -66,7 +67,7 @@ namespace SimpleBlog
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

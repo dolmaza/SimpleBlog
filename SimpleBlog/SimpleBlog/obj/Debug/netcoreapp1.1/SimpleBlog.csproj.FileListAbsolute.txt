@@ -1,9 +1,0 @@
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp1.1\SimpleBlog.deps.json
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp1.1\SimpleBlog.runtimeconfig.json
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp1.1\SimpleBlog.runtimeconfig.dev.json
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp1.1\SimpleBlog.dll
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\bin\Debug\netcoreapp1.1\SimpleBlog.pdb
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp1.1\SimpleBlog.AssemblyInfo.cs
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp1.1\SimpleBlog.dll
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp1.1\SimpleBlog.pdb
-C:\Users\Giorgi\Documents\Working\Projects\SimpleBlog\SimpleBlog\SimpleBlog\obj\Debug\netcoreapp1.1\SimpleBlog.csprojResolveAssemblyReference.cache

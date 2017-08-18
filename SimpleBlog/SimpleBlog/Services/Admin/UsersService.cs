@@ -70,7 +70,7 @@ namespace SimpleBlog.Services.Admin
 
         public IEnumerable<UsersViewModel.UserItem> GetAll()
         {
-            var users = _userRepository.GetAll().ToList();
+            var users = _userRepository.GetAllAsync().Result.ToList();
             return users.Select(u => new UsersViewModel.UserItem
             {
                 UserName = u.UserName,
