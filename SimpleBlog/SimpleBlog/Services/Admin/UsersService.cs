@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using SimpleBlog.Areas.Admin.SubmitModels;
 using SimpleBlog.Areas.Admin.ViewModels;
 using SimpleBlog.Data.Entities;
@@ -14,7 +12,7 @@ namespace SimpleBlog.Services.Admin
 {
     public interface IUserService : IBaseService
     {
-        IEnumerable<UsersViewModel.UserItem> GetAll();
+        IEnumerable<UsersViewModel.UserItem> GetAll(IUrlHelper url);
         User GetById(int? id);
         User GetByUserNameAndPassword(string userName, string password);
 
@@ -26,17 +24,12 @@ namespace SimpleBlog.Services.Admin
     public class UsersService : IUserService
     {
         private readonly IRepository<User> _userRepository;
-        private readonly IUrlHelper _url;
 
         public bool IsError { get; set; }
 
-        public UsersService(
-            IRepository<User> userRepository,
-            IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor)
+        public UsersService(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
-            _url = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
 
 
@@ -68,7 +61,7 @@ namespace SimpleBlog.Services.Admin
 
         }
 
-        public IEnumerable<UsersViewModel.UserItem> GetAll()
+        public IEnumerable<UsersViewModel.UserItem> GetAll(IUrlHelper url)
         {
             var users = _userRepository.GetAllAsync().Result.ToList();
             return users.Select(u => new UsersViewModel.UserItem
@@ -79,8 +72,8 @@ namespace SimpleBlog.Services.Admin
                 Lastname = u.Lastname,
                 IsActive = u.IsActive,
 
-                UpdateUrl = _url.RouteUrl("adminUsersEdit", new { id = u.Id }),
-                DeleteUrl = _url.RouteUrl("adminUsersDelete", new { id = u.Id })
+                UpdateUrl = url.RouteUrl("adminUsersEdit", new { id = u.Id }),
+                DeleteUrl = url.RouteUrl("adminUsersDelete", new { id = u.Id })
             }).ToList();
         }
 

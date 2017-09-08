@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,12 +45,12 @@ namespace SimpleBlog
             services.AddSingleton<IRepository<User>, Repository<User>>();
             services.AddSingleton<IRepository<Role>, Repository<Role>>();
             services.AddSingleton<IRepository<Category>, Repository<Category>>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSingleton<IUserService, UsersService>();
             services.AddSingleton<ICategoryService, CategoriesService>();
 
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/admin/login");
 
             services.AddMvc();
         }

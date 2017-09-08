@@ -24,7 +24,7 @@ namespace SimpleBlog.Areas.Admin.Controllers
                 CategoryCreateUrl = Url.RouteUrl("adminCategoriesCreate"),
                 SyncSortIndexesUrl = Url.RouteUrl("adminCategoriesSyncSortIndexes"),
 
-                Categories = _categoryService.GetAll().ToList()
+                Categories = _categoryService.GetAll(Url).ToList()
             };
             return View(model);
         }

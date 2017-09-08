@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using SimpleBlog.Areas.Admin.SubmitModels;
 using SimpleBlog.Areas.Admin.ViewModels;
 using SimpleBlog.Data.Entities;
@@ -13,7 +11,7 @@ namespace SimpleBlog.Services.Admin
 {
     public interface ICategoryService : IBaseService
     {
-        IEnumerable<CategoriesViewModel.CategoryItem> GetAll();
+        IEnumerable<CategoriesViewModel.CategoryItem> GetAll(IUrlHelper url);
         Category GetById(int? id);
 
         int? Add(CategoryCreateSubmitModel submitModel);
@@ -26,20 +24,16 @@ namespace SimpleBlog.Services.Admin
     public class CategoriesService : ICategoryService
     {
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IUrlHelper _url;
 
         public bool IsError { get; set; }
 
-        public CategoriesService(IRepository<Category> categoryRepository,
-            IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor)
+        public CategoriesService(IRepository<Category> categoryRepository)
         {
             _categoryRepository = categoryRepository;
-            _url = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 
         }
 
-        public IEnumerable<CategoriesViewModel.CategoryItem> GetAll()
+        public IEnumerable<CategoriesViewModel.CategoryItem> GetAll(IUrlHelper url)
         {
             var categories = _categoryRepository.GetAsync(filter: c => c.ParentId == null, includes: c => c.ChildCategories).Result.ToList();
 
@@ -51,10 +45,10 @@ namespace SimpleBlog.Services.Admin
                 Caption = c.Caption,
                 Code = c.Code,
 
-                UpdateUrl = _url.RouteUrl("adminCategoriesUpdate", new { id = c.Id }),
-                DeleteUrl = _url.RouteUrl("adminCategoriesDelete", new { id = c.Id }),
+                UpdateUrl = url.RouteUrl("adminCategoriesUpdate", new { id = c.Id }),
+                DeleteUrl = url.RouteUrl("adminCategoriesDelete", new { id = c.Id }),
 
-                Categories = CategoriesViewModel.CategoryItem.GetSubCategories(_url, c.ChildCategories.ToList())
+                Categories = CategoriesViewModel.CategoryItem.GetSubCategories(url, c.ChildCategories.ToList())
             }).ToList();
         }
 

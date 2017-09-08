@@ -20,7 +20,7 @@ namespace SimpleBlog.Areas.Admin.Controllers
             var model = new UsersViewModel
             {
                 UserCreateUrl = Url.RouteUrl("adminUsersCreate"),
-                UserItems = _userService.GetAll().ToList()
+                UserItems = _userService.GetAll(Url).ToList()
             };
 
             return View(model);
